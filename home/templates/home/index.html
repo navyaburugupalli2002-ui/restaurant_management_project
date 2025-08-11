@@ -1,10 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Restaurant HomePage</title>
-</head>
-<body>
-    <h1>Welcome to {{ Full Moon}}</h1>>
-</body>
-</html>
+<nav>
+    <a href="{% url 'home' %}">Home</a> |
+    <a href="{% url 'about' %}">About Us</a>
+</nav>
