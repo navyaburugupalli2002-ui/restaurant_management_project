@@ -1,4 +1,7 @@
 from django.shortcuts import render
 
-def about_view(request):
-    return render(request, 'home/about.html')
+def contact_page(request):
+    """
+    Renders the contact us page.
+    """
+    return render(request, 'contact.html')
