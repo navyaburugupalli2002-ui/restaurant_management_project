@@ -1,8 +1,14 @@
-from django.shortcuts import render
-from django.conf import settings  
+from django.shortcuts import render 
 
-def index(request):
+def home(request):
+    """
+    Renders the homepage of the restaurant.
+
+    This view prepares a context dictionary containning the restaurant's name
+    and a welcome message, which are then passed to the template for display.
+    """
     context={
-        'phone_number':settings.RESTAURANT_PHONE_NUMBER,
+        'restaurant_name': 'Full Moon',
+        'welcome_message': 'Welcome to our website!',
     }
     return render(request, 'home/index.html', context)
