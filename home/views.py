@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.conf import settings  
 
-def contact_page(request):
-    """
-    Renders the contact us page.
-    """
-    return render(request, 'contact.html')
+def index(request):
+    context={
+        'phone_number':settings.RESTAURANT_PHONE_NUMBER,
+    }
+    return render(request, 'home/index.html', context)
