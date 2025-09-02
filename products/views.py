@@ -1,26 +1,24 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
+from .models import Product
+from django.db import DatabaseError
 
-from .models import Item
-from .serializers import ItemSerializer
-
-'''
-NOTE: Conside this as a reference and follow this same coding structure or format to work on you tasks
-'''
-
-# Create your views here.
-class ItemView(APIView):
-
-    def get(self, request):
-        items = Item.objects.all()
-        serializer = ItemSerializer(items, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = ItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def Product_list(request):
+    try:
+        products=Product.objects.all()
+        return render(request, "products/products_list.html", {"products":products})
+    except DatabaseError as e:
+        print(f"Database error:{e}")
+        return HttpResponse("Sorry, we are experiencing database issues.", status=500)
+    except Exception as e:
+        print(f"Unexpected error:{e}")
+        return HttpResponse("An unexpected error occurred.", status=500)
+def product_detail(request, product_id):
+    try:
+        product=get_object_or_404(product, id=product_id)
+        return render(request, "products/product_detail.html", {"product":product})
+    except Product.DoesNotExist:
+        return HttpResponse("Product Not Found.", status=400)
+    except Exception as e:
+        print(f"Error: {e}")
+        return HttpResponse("Something went wrong.", status=500)
