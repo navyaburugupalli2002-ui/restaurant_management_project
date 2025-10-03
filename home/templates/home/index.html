@@ -2,3 +2,13 @@
     Call us at: {{ phone_number }}
 </p>
 
+
+<footer>
+    <p style="text-allign: center; padding: 15px; background-color: #f0f0f0; color: #555: font-size: 0.85em">
+        &copy; <span id="current-year"></span> Restaurant Management Project. All Rights Reserved.
+    </p>
+</footer>
+
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
